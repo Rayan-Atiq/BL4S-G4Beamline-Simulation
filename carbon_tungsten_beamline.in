@@ -1,0 +1,31 @@
+# 1. Physics
+physics QGSP_BERT
+
+# 2. Geometry Definitions
+# Standard boxes
+box targetC height=100 width=100 length=50 material=C
+box targetW height=100 width=100 length=50 material=W
+
+# Define a detector shape
+virtualdetector myDet radius=500 length=1
+
+# 3. Placement (Z-axis)
+# We put everything very close to the center (z=0)
+place targetC z=100
+place targetW z=300
+
+# Place detectors before, between, and after
+place myDet rename=det1 z=50
+place myDet rename=det2 z=200
+place myDet rename=det3 z=400
+
+# 4. The Beam (Fixed)
+# We start the beam at z=0 pointing directly down the Z axis
+beam gaussian nEvents=1000 particle=pi+ \
+    meanMomentum=8000 sigmaP=100 \
+    beamZ=0 beamX=0 beamY=0 \
+    sigmaX=1 sigmaY=1 sigmaXp=0 sigmaYp=0
+
+# 5. Force Output
+param rootFile=pion_results.root
+exit
